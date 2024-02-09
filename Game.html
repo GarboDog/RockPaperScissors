@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="🗻Rock, 📄Paper, ✂Scissors!">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png" type="image/png">
+    <title>🗻 📄 ✂!</title>
+
+<style>
+
+    body {
+        text-align: center;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        background-color: #171717;
+        color: #e5e7eb;
+    }
+
+    #header {
+        font-size: 16px;
+    }
+    #header-title {
+        font-size: 32px;
+        margin-top: 0px;
+    }
+
+    .logoImage {
+        width: 200px;
+        transition: transform 1s ease;
+        align-items: center;
+    }
+
+    #resultDisplay {
+        font-size: 24px;
+    }
+
+    @keyframes swivelLR {
+        0% {
+            transform: rotate(0deg);
+        }
+        33% {
+            transform: rotate(-45deg);
+        }
+        66% {
+            transform: rotate(45deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+    @keyframes swivelRL {
+        0% {
+            transform: rotate(0deg);
+        }
+        33% {
+            transform: rotate(45deg);
+        }
+        66% {
+            transform: rotate(-45deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+    @keyframes growShakeL {
+        0% {
+            transform: rotate(0deg) scale(1);
+        }
+        33% {
+            transform: rotate(15deg) scale(1.25);
+        }
+        66% {
+            transform: rotate(-15deg)  scale(1.25);
+        }
+        100% {
+            transform: rotate(0deg) scale(1);
+        }
+    }
+    @keyframes growShakeR {
+        0% {
+            transform: rotate(0deg) scale(1);
+        }
+        33% {
+            transform: rotate(-15deg) scale(1.25);
+        }
+        66% {
+            transform: rotate(15deg)  scale(1.25);
+        }
+        100% {
+            transform: rotate(0deg) scale(1);
+        }
+    }
+    @keyframes spin360Cc {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(-360deg);
+        }
+    }
+    .fistResultL {
+        animation: growShakeL 1s ease-in-out 1;
+    }
+    .fistResultR {
+        animation: growShakeR 1s ease-in-out 1;
+    }
+    .fistShakeL {
+        animation: swivelLR 1s ease-in-out 3;
+    }
+    .fistShakeR{
+        animation: swivelRL 1s ease-in-out 3;
+    }
+
+    #gameContainer {
+        width : 80%;
+        margin: 0 auto;
+        max-width: 900px;
+    }
+
+    .gameButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        width: 30%;
+    }
+    .gameButton img {
+        max-width: 100%;
+        height: auto
+    }
+
+    .gameButton :hover {
+        animation: swivelLR 1s ease-in-out infinite;
+    }
+
+    #gameScoreDisplay {
+        position: fixed;
+        text-align: left;
+        left: 40px;
+        top: 20px;
+        font-size: 24px;
+    }
+
+    .handAnimationContainer {
+        width : 80%;
+        margin: 0 auto;
+        max-width: 900px;
+        width: 30%;
+    }
+    .handAnimationContainer img {
+        max-width: 100%;
+        height: auto
+    }
+
+    .resultContainer {
+        width : 80%;
+        margin: 0 auto;
+        max-width: 900px;
+        display: inline-block;
+        width: 30%;
+    }
+    .resultContainer img {
+        max-width: 100%;
+        height: auto
+    }
+    .resultsButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        width: 30%;
+        margin-top: 10px;
+    }
+    .resultsButton img {
+        max-width: 100%;
+        height: auto
+    }
+
+    .resultsButton :hover {
+        animation: spin360Cc 1s linear infinite;
+    }
+    
+
+</style>
+</head>
+
+<body>
+
+    <div id="header">
+        <img id="logoImage" class="logoImage" src="https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png" alt="Animated Logo">
+        <p id="header-title">ROCK, PAPER, SCISSORS!</h1>
+    </div>
+
+    <div id="gameContainer">
+        <button class="gameButton" onclick="gameLogic(playerMove = 'Rock')"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205256631374446603/Rock_transparent.png"></button>
+        <button class="gameButton" onclick="gameLogic(playerMove = 'Paper')"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205255725094543442/paper_transparent.png"></button>
+        <button class="gameButton" onclick="gameLogic(playerMove = 'Scissors')"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205255725605982269/scissors_transparent.png"></button>
+    </div>
+
+    <div id="handAnimationContainer" hidden>
+        <img class="fistShakeL" src="https://media.discordapp.net/attachments/1178445410512146563/1205281839795667045/Rock_transparent_L.png"> <img class="fistShakeR" src="https://media.discordapp.net/attachments/1178445410512146563/1205256887763730532/Rock_transparent.png">
+    </div>
+
+    <div id="resultContainer" hidden>
+        <img class="fistResultL" src="https://media.discordapp.net/attachments/1178445410512146563/1205281649152229456/Rock_L.png" width="220" height="auto"><img class="fistResultR" src="https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png" width="220" height="auto">
+        <div id="resultDisplay">Results</div>
+        <button class="resultsButton" onclick="restart()"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205302883512361010/restart-yellow-icon.png" width="50px" height="50px"></button>
+    </div>
+
+    <div id="gameScoreDisplay">
+        <p>Wins: # <br> Losses: # <br> Ties: #</p>
+    </div>
+
+<script>
+
+    /* title Animation */
+    var titles = ["🗻 📄 ✂!", "🗻 Rock", "🗻 Rock", "🗻 Rock", "📄 Paper", "📄 Paper", "📄 Paper", "✂ Scissors", "✂ Scissors", "✂ Scissors", "🗻", "🗻 📄", "🗻 📄 ✂!", "🗻 📄 ✂!", "📄 ✂ 🗻!", "✂ 🗻 📄!", "🗻 📄 ✂!", "📄 ✂ 🗻!", "✂ 🗻 📄!", "🗻 📄 ✂!", "🗻 📄 ✂!"];
+    var titleIndex = 0;
+    setInterval(function() {
+        document.title = titles[titleIndex];
+        titleIndex = (titleIndex + 1) % titles.length;
+    }, 500);
+
+    /* Logo animation */
+    var logoImages = ["https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png", "https://media.discordapp.net/attachments/1178445410512146563/1204584290977976340/paper.png", "https://media.discordapp.net/attachments/1178445410512146563/1204584291627966605/scissors.png", "https://media.discordapp.net/attachments/1178445410512146563/1204584290642558986/logo.png"];
+    function rotate45Nv() { /* Rotate Left */
+        const currentRotation = parseFloat(logoImage.dataset.rotation || 0);
+        const newRotation = currentRotation - 45;
+        logoImage.style.transform = `rotate(${newRotation}deg)`;
+        logoImage.dataset.rotation = newRotation;
+    }
+    function rotate45Ps() { /* Rotate Right */
+        const currentSpin = parseFloat(logoImage.dataset.rotation || 0);
+        const newSpin = currentSpin + 45;
+        logoImage.style.transform = `rotate(${newSpin}deg)`;
+        logoImage.dataset.rotation = newSpin;
+    }
+    function spin45Nv() { /* Spin left 45 degrees */
+        var currentSpin = getComputedStyle(logoImage).getPropertyValue('transform');
+        var newSpin = 'rotate(' + (getRotationDegrees(currentSpin) - 45) + 'deg)';
+        logoImage.style.transform = newSpin;
+    }
+    function spin45Ps() { /* Spin right 45 degrees */
+        var currentSpin = getComputedStyle(logoImage).getPropertyValue('transform');
+        var newSpin = 'rotate(' + (getRotationDegrees(currentSpin) + 45) + 'deg)';
+        logoImage.style.transform = newSpin;
+    }
+    function spin360Ps() { /* Spin right 360 degrees */
+        var currentSpin = getComputedStyle(logoImage).getPropertyValue('transform');
+        var newSpin = 'rotate(' + (getRotationDegrees(currentSpin) + 360) + 'deg)';
+        logoImage.style.transform = newSpin;
+    }
+    function getRotationDegrees(rotation) {
+        if (!rotation || rotation === 'none') return 0;
+        var values = rotation.split('(')[1].split(')')[0].split(',');
+        var a = values[0];
+        var b = values[1];
+        var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+        return (angle < 0 ? angle + 360 : angle);
+    }
+    function animateLogo() {
+        const logoImage = document.getElementById('logoImage');
+        logoImage.style.transform = 'rotate(0deg)';
+        logoImage.src = logoImages[0];
+        logoImage.dataset.rotation = 0;
+        rotate45Ps();
+        spin45Nv();
+        setTimeout(function() {
+            logoImage.src = logoImages[1];
+            rotate45Nv();
+            spin45Ps();
+        }, 1000);
+        setTimeout(function() {
+            logoImage.src = logoImages[2];
+            rotate45Ps();
+            spin45Nv();
+        }, 2000);
+        setTimeout(function() {
+            logoImage.src = logoImages[3];
+            spin360Ps();
+        }, 3000);
+    }
+    animateLogo();
+
+    // Score Board
+    wins = 0
+    losses = 0
+    ties = 0
+    function updateScoreBoard() {
+        var scoreBoardDisplayElement = document.getElementById("gameScoreDisplay");
+        scoreBoardDisplayElement.innerText = 'Wins: ' + wins + '\nLosses: ' + losses + '\nTies: ' + ties;
+    }
+
+    updateScoreBoard();
+
+    // Logic
+    function pcMove(){
+        const randomNum = Math.random();
+        fistResultRElement = document.getElementsByClassName("fistResultR")[0];
+        if (randomNum >= 0 && randomNum < 1/3) {
+            pcChoice = "Rock";
+            fistResultRElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png";
+        } else if (randomNum >= 1/3 && randomNum < 2/3) {
+            pcChoice = "Paper";
+            fistResultRElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205281648858374195/paper_R.png";
+        } else if (randomNum >= 2/3) {
+            pcChoice = "Scissors";
+            fistResultRElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205281649487646800/scissors.png";
+        }
+    }
+    function gameLogic(playerMove) {
+        var gameContainerElement = document.getElementById("gameContainer");
+        gameContainerElement.setAttribute("hidden", true);
+        var handAnimationContainerElement = document.getElementById("handAnimationContainer");
+        handAnimationContainerElement.removeAttribute("hidden", true);
+        pcMove();
+        fistResultLElement = document.getElementsByClassName("fistResultL")[0];
+        if (playerMove == "Rock") {
+            fistResultLElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205281649152229456/Rock_L.png";
+        } else if (playerMove == "Paper") {
+            fistResultLElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1204584290977976340/paper.png";
+        } else if (playerMove == "Scissors") {
+            fistResultLElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205308640232214558/scissors_L.png";
+        }
+
+        if (playerMove == "Rock" && pcChoice == "Rock") { // Player choses Rock 
+            result = "Tie";
+            ties = ties + 1;
+        } else if (playerMove == "Rock" && pcChoice == "Paper") {
+            result = "Lose";
+            losses = losses +1;
+        } else if (playerMove == "Rock" && pcChoice == "Scissors") {
+            result = "Win";
+            wins = wins + 1;
+        } else if (playerMove == "Paper" && pcChoice == "Rock") { // Player choses Paper 
+            result = "Win";
+            wins = wins + 1;
+        } else if (playerMove == "Paper" && pcChoice == "Paper") {
+            result = "Tie";
+            ties = ties + 1;
+        } else if (playerMove == "Paper" && pcChoice == "Scissors") {
+            result = "Lose";
+            losses = losses +1;
+        } else if (playerMove == "Scissors" && pcChoice == "Rock") { // Player choses Scissors 
+            result = "Lose";
+            losses = losses +1;
+        } else if (playerMove == "Scissors" && pcChoice == "Paper") {
+            result = "Win";
+            wins = wins + 1;
+        } else if (playerMove == "Scissors" && pcChoice == "Scissors") {
+            result = "Tie";
+            ties = ties + 1;
+        }
+        resultDisplayElement = document.getElementById("resultDisplay");
+        resultDisplayElement.innerText = playerMove + " VS " + pcChoice + "\n" + result;
+        setTimeout(function() {
+            updateScoreBoard();
+            handAnimationContainerElement.setAttribute('hidden', true);
+            var resultContainerElement = document.getElementById('resultContainer');
+            resultContainerElement.removeAttribute("hidden");
+        }, 2333);
+    }
+    function restart() {
+        var resultContainerElement = document.getElementById('resultContainer');
+        resultContainerElement.setAttribute("hidden", true);
+        var gameContainerElement = document.getElementById("gameContainer");
+        gameContainerElement.removeAttribute("hidden");
+    }
+
+</script>
+</body>
+</html>
