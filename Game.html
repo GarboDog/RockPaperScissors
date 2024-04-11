@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:description" content="🗻Rock, 📄Paper, ✂Scissors!">
-    <link rel="icon" href="https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png" type="image/png">
+    <link rel="icon" href="https://i.ibb.co/ckMkcBB/Rock-transparent-L.png" type="image/png">
     <title>🗻 📄 ✂!</title>
 
 <style>
@@ -189,24 +189,24 @@
 <body>
 
     <div id="header">
-        <img id="logoImage" class="logoImage" src="https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png" alt="Animated Logo">
+        <img id="logoImage" class="logoImage" src="https://i.ibb.co/p3kxNfG/Rock-L.png" alt="Animated Logo">
         <p id="header-title">ROCK, PAPER, SCISSORS!</h1>
     </div>
 
     <div id="gameContainer">
-        <button class="gameButton" onclick="gameLogic(playerMove = 'Rock')"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205256631374446603/Rock_transparent.png"></button>
-        <button class="gameButton" onclick="gameLogic(playerMove = 'Paper')"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205255725094543442/paper_transparent.png"></button>
-        <button class="gameButton" onclick="gameLogic(playerMove = 'Scissors')"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205255725605982269/scissors_transparent.png"></button>
+        <button class="gameButton" onclick="gameLogic(playerMove = 'Rock')"><img src="https://i.ibb.co/ckMkcBB/Rock-transparent-L.png"></button>
+        <button class="gameButton" onclick="gameLogic(playerMove = 'Paper')"><img src="https://i.ibb.co/b1pq6K9/paper-transparent.png"></button>
+        <button class="gameButton" onclick="gameLogic(playerMove = 'Scissors')"><img src="https://i.ibb.co/HBSp5jh/scissors-transparent-R.png"></button>
     </div>
 
     <div id="handAnimationContainer" hidden>
-        <img class="fistShakeL" src="https://media.discordapp.net/attachments/1178445410512146563/1205281839795667045/Rock_transparent_L.png"> <img class="fistShakeR" src="https://media.discordapp.net/attachments/1178445410512146563/1205256887763730532/Rock_transparent.png">
+        <img class="fistShakeL" src="https://i.ibb.co/ckMkcBB/Rock-transparent-L.png"> <img class="fistShakeR" src="https://i.ibb.co/9pgfzwL/Rock-transparent.png">
     </div>
 
     <div id="resultContainer" hidden>
-        <img class="fistResultL" src="https://media.discordapp.net/attachments/1178445410512146563/1205281649152229456/Rock_L.png" width="220" height="auto"><img class="fistResultR" src="https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png" width="220" height="auto">
+        <img class="fistResultL" src="https://i.ibb.co/p3kxNfG/Rock-L.png" width="220" height="auto"><img class="fistResultR" src="https://i.ibb.co/p3kxNfG/Rock-L.png" width="220" height="auto">
         <div id="resultDisplay">Results</div>
-        <button class="resultsButton" onclick="restart()"><img src="https://media.discordapp.net/attachments/1178445410512146563/1205302883512361010/restart-yellow-icon.png" width="50px" height="50px"></button>
+        <button class="resultsButton" onclick="restart()"><img src="https://i.ibb.co/XxrRj7N/restart-yellow-icon.png" width="50px" height="50px"></button>
     </div>
 
     <div id="gameScoreDisplay">
@@ -224,7 +224,7 @@
     }, 500);
 
     /* Logo animation */
-    var logoImages = ["https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png", "https://media.discordapp.net/attachments/1178445410512146563/1204584290977976340/paper.png", "https://media.discordapp.net/attachments/1178445410512146563/1204584291627966605/scissors.png", "https://media.discordapp.net/attachments/1178445410512146563/1204584290642558986/logo.png"];
+    var logoImages = ["https://i.ibb.co/s9Ky5YX/Rock.png", "https://i.ibb.co/7y42kBb/paper.png", "https://i.ibb.co/VJCtgHh/scissors.png", "https://i.ibb.co/0Ck7bVC/logo.png"];
     function rotate45Nv() { /* Rotate Left */
         const currentRotation = parseFloat(logoImage.dataset.rotation || 0);
         const newRotation = currentRotation - 45;
@@ -301,13 +301,13 @@
         fistResultRElement = document.getElementsByClassName("fistResultR")[0];
         if (randomNum >= 0 && randomNum < 1/3) {
             pcChoice = "Rock";
-            fistResultRElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1204584291359653948/Rock.png";
+            fistResultRElement.src = "https://i.ibb.co/N17q7Kj/paper-R.png";
         } else if (randomNum >= 1/3 && randomNum < 2/3) {
             pcChoice = "Paper";
-            fistResultRElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205281648858374195/paper_R.png";
+            fistResultRElement.src = "https://i.ibb.co/N17q7Kj/paper-R.png";
         } else if (randomNum >= 2/3) {
             pcChoice = "Scissors";
-            fistResultRElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205281649487646800/scissors.png";
+            fistResultRElement.src = "https://i.ibb.co/VJCtgHh/scissors.png";
         }
     }
     function gameLogic(playerMove) {
@@ -318,11 +318,11 @@
         pcMove();
         fistResultLElement = document.getElementsByClassName("fistResultL")[0];
         if (playerMove == "Rock") {
-            fistResultLElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205281649152229456/Rock_L.png";
+            fistResultLElement.src = "https://i.ibb.co/p3kxNfG/Rock-L.png";
         } else if (playerMove == "Paper") {
-            fistResultLElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1204584290977976340/paper.png";
+            fistResultLElement.src = "https://i.ibb.co/7y42kBb/paper.png";
         } else if (playerMove == "Scissors") {
-            fistResultLElement.src = "https://media.discordapp.net/attachments/1178445410512146563/1205308640232214558/scissors_L.png";
+            fistResultLElement.src = "https://i.ibb.co/wRLJv96/scissors-L.png";
         }
 
         if (playerMove == "Rock" && pcChoice == "Rock") { // Player choses Rock 
